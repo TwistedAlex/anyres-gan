@@ -5,13 +5,13 @@ def as_tensor(data, source='zc', target='zc'):
     renorm = renormalizer(source=source, target=target)
     return renorm(data)
 
-def as_image(data, count, source='zc', target='byte'):
+def as_image(data, count, path, source='zc', target='byte'):
     assert len(data.shape) == 3
     renorm = renormalizer(source=source, target=target)
     filename = (str(count)).zfill(5)
     print(filename)
     PIL.Image.fromarray(renorm(data).
-            permute(1,2,0).cpu().numpy(), 'RGB').save('/out/' + filename + '.png')
+            permute(1,2,0).cpu().numpy(), 'RGB').save(path + '/' + filename + '.png')
 
 def as_url(data, source='zc', size=None):
     if source != 'pil':
